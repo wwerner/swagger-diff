@@ -38,11 +38,11 @@ public class MarkdownRender implements Render {
 		List<ChangedEndpoint> changedEndpoints = diff.getChangedEndpoints();
 		String ol_changed = ol_changed(changedEndpoints);
 
-		return renderHtml(diff.getOldVersion(), diff.getNewVersion(), ol_newEndpoint, ol_missingEndpoint, ol_changed);
+		return renderMarkdown(diff.getOldVersion(), diff.getNewVersion(), ol_newEndpoint, ol_missingEndpoint, ol_changed);
 	}
 
-	public String renderHtml(String oldVersion, String newVersion, String ol_new, String ol_miss,
-							 String ol_changed) {
+	public String renderMarkdown(String oldVersion, String newVersion, String ol_new, String ol_miss,
+								 String ol_changed) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(H2).append("Version " + oldVersion + " to " + newVersion).append("\n").append(HR);
 		sb.append(H3).append("What's New").append("\n").append(HR)
