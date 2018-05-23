@@ -20,6 +20,7 @@ public class SwaggerDiffTest {
 
 	final String SWAGGER_V2_DOC1 = "petstore_v2_1.json";
 	final String SWAGGER_V2_DOC2 = "petstore_v2_2.json";
+	final String SWAGGER_V2_DOC2_COMPATIBLE = "petstore_v2_3-compatible-to-2.2.json";
 	final String SWAGGER_V2_EMPTY_DOC = "petstore_v2_empty.json";
 	final String SWAGGER_V2_HTTP = "http://petstore.swagger.io/v2/swagger.json";
 
@@ -100,7 +101,28 @@ public class SwaggerDiffTest {
 		Assert.assertFalse(changedEndPoints.isEmpty());
 		
 	}
-	
+
+	@Test
+	public void testDiffIsCompatible() {
+		SwaggerDiff diff = SwaggerDiff.compareV2(SWAGGER_V2_DOC2, SWAGGER_V2_DOC2_COMPATIBLE);
+		Assert.assertTrue(diff.hasChanges());
+		Assert.assertTrue(diff.isBackwardCompatible());
+	}
+
+	@Test
+	public void testDiffIsNotCompatible() {
+		SwaggerDiff diff = SwaggerDiff.compareV2(SWAGGER_V2_DOC1, SWAGGER_V2_DOC2);
+		Assert.assertTrue(diff.hasChanges());
+		Assert.assertFalse(diff.isBackwardCompatible());
+	}
+
+	@Test
+	public void testDiffHasChanges() {
+		SwaggerDiff diff = SwaggerDiff.compareV2(SWAGGER_V2_DOC1, SWAGGER_V2_DOC1);
+		Assert.assertFalse(diff.hasChanges());
+		Assert.assertTrue(diff.isBackwardCompatible());
+	}
+
 	@Test
 	public void testDiffAndMarkdown() {
 		SwaggerDiff diff = SwaggerDiff.compareV2(SWAGGER_V2_DOC1, SWAGGER_V2_DOC2);

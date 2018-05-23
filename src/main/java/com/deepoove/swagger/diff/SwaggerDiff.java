@@ -45,7 +45,7 @@ public class SwaggerDiff {
 
     /**
      * compare two swagger 1.x doc
-     * 
+     *
      * @param oldSpec
      *            old api-doc location:Json or Http
      * @param newSpec
@@ -57,7 +57,7 @@ public class SwaggerDiff {
 
     /**
      * compare two swagger v2.0 doc
-     * 
+     *
      * @param oldSpec
      *            old api-doc location:Json or Http
      * @param newSpec
@@ -82,6 +82,19 @@ public class SwaggerDiff {
     public static SwaggerDiff compare(String oldSpec, String newSpec,
             List<AuthorizationValue> auths, String version) {
         return new SwaggerDiff(oldSpec, newSpec, auths, version).compare();
+    }
+
+    public boolean isBackwardCompatible() {
+        return missingEndpoints.isEmpty() && changedEndpoints.isEmpty();
+    }
+
+    public boolean hasChanges() {
+        return
+            !(
+                newEndpoints.isEmpty()
+                && missingEndpoints.isEmpty()
+                && changedEndpoints.isEmpty()
+            );
     }
 
     /**
