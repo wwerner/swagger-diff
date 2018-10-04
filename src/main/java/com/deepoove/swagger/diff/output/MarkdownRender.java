@@ -105,7 +105,11 @@ public class MarkdownRender implements Render {
                     ul_detail
                         .append(ul_response(changedOperation));
                 }
-                sb.append(LI).append(CODE).append(method).append(CODE)
+                sb.append(LI);
+                if(changedOperation.isDeprecated()) {
+                    sb.append(":warning: [*Deprecated*]");
+                }
+                sb.append(CODE).append(method).append(CODE)
                     .append(" " + pathUrl).append(" " + desc + "  \n")
                     .append(ul_detail);
             }

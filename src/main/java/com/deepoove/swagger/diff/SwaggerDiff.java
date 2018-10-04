@@ -166,6 +166,10 @@ public class SwaggerDiff {
                 Operation newOperation = newOperationMap.get(method);
                 changedOperation.setSummary(newOperation.getSummary());
 
+                if(oldOperation.isDeprecated() != newOperation.isDeprecated()) {
+                    changedOperation.setDeprecated(newOperation.isDeprecated());
+                }
+
                 List<Parameter> oldParameters = oldOperation.getParameters();
                 List<Parameter> newParameters = newOperation.getParameters();
                 ParameterDiff parameterDiff = ParameterDiff

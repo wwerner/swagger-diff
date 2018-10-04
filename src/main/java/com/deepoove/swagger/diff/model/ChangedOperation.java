@@ -17,6 +17,8 @@ public class ChangedOperation implements Changed {
 	private List<ElProperty> addProps = new ArrayList<ElProperty>();
 	private List<ElProperty> missingProps = new ArrayList<ElProperty>();
 
+	private Boolean deprecated;
+
 	public List<Parameter> getAddParameters() {
 		return addParameters;
 	}
@@ -68,7 +70,8 @@ public class ChangedOperation implements Changed {
 	public boolean isDiff() {
 		return !addParameters.isEmpty() || !missingParameters.isEmpty()
 				|| !changedParameter.isEmpty() || !addProps.isEmpty()
-				|| !missingProps.isEmpty();
+				|| !missingProps.isEmpty()
+				|| deprecated != null;
 	}
 	public boolean isDiffProp(){
 		return !addProps.isEmpty()
@@ -79,4 +82,11 @@ public class ChangedOperation implements Changed {
 				|| !changedParameter.isEmpty();
 	}
 
+	public boolean isDeprecated() {
+		return deprecated == null ? false : deprecated.booleanValue();
+	}
+
+	public void setDeprecated(Boolean deprecated) {
+		this.deprecated = deprecated;
+	}
 }
